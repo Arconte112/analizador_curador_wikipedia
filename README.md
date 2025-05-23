@@ -57,7 +57,6 @@ El objetivo es proporcionar una herramienta para explorar y curar contenido de W
     ```bash
     pip install -r requirements.txt
     ```
-    (Si `requirements.txt` no está actualizado, puedes instalar las dependencias directamente como se hizo en el plan: `pip install fastapi uvicorn[standard] sqlalchemy psycopg2-binary python-dotenv wikipedia-api requests pydantic[email] nltk`)
 *   **Descargar recursos de NLTK (si no se hizo automáticamente):**
     Ejecutar el script `temp_nltk_download.py` o el código Python para descargar `stopwords` y `punkt` para español.
 *   **Configurar variables de entorno:**
