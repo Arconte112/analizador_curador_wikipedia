@@ -20,33 +20,33 @@ def try_init_db():
     finally:
         db.close()
 
-        # Descomentar para ejecutar al inicio si no se usa Alembic
-        # try_init_db() # Mantener comentado si se usa el evento startup
+# Descomentar para ejecutar al inicio si no se usa Alembic
+# try_init_db() # Mantener comentado si se usa el evento startup
 
 
-        app = FastAPI(
-            title=settings.PROJECT_NAME,
-            openapi_url=f"{settings.API_V1_STR}/openapi.json"
-        )
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    openapi_url=f"{settings.API_V1_STR}/openapi.json"
+)
 
-        # Configuración de CORS
-        # Ajustar origins según sea necesario para producción
-        app.add_middleware(
-            CORSMiddleware,
-            allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"], # Origen del frontend Next.js
-            allow_credentials=True,
-            allow_methods=["*"],
-            allow_headers=["*"],
-        )
+# Configuración de CORS
+# Ajustar origins según sea necesario para producción
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"], # Origen del frontend Next.js
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-        app.include_router(api_router, prefix=settings.API_V1_STR)
+app.include_router(api_router, prefix=settings.API_V1_STR)
 
-        @app.get("/")
-        async def root():
-            return {"message": f"Bienvenido a {settings.PROJECT_NAME}"}
+@app.get("/")
+async def root():
+    return {"message": f"Bienvenido a {settings.PROJECT_NAME}"}
 
-        # Si se usa uvicorn main:app --reload, esto puede ser útil para inicializar la BD una vez
-        @app.on_event("startup")
-        async def on_startup():
-            print("Aplicación iniciada. Intentando inicializar DB...")
-            try_init_db()
+# Si se usa uvicorn main:app --reload, esto puede ser útil para inicializar la BD una vez
+@app.on_event("startup")
+async def on_startup():
+    print("Aplicación iniciada. Intentando inicializar DB...")
+    try_init_db()

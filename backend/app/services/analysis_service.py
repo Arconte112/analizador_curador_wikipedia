@@ -9,8 +9,17 @@ except LookupError:
     # Esto es un fallback si nltk.download no se ejecutó o falló
     print("NLTK stopwords for Spanish not found. Downloading...")
     import nltk
-    nltk.download('stopwords')
+    nltk.download('stopwords', quiet=True)
     stop_words_es = set(stopwords.words('spanish'))
+
+try:
+    # Verificar si 'punkt' está disponible, necesario para word_tokenize
+    word_tokenize("test", language='spanish')
+except LookupError:
+    print("NLTK punkt tokenizer models not found. Downloading 'punkt' and 'punkt_tab'...")
+    import nltk
+    nltk.download('punkt', quiet=True)
+    nltk.download('punkt_tab', quiet=True) # Ensure punkt_tab is also downloaded
 
 # Añadir palabras comunes o irrelevantes si es necesario
 additional_stopwords = {'ej', 'mas', 'ser', 'haber', 'puede', 'si', 'solo', 'tan'}
