@@ -1,15 +1,14 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware # Para permitir peticiones del frontend
+from fastapi.middleware.cors import CORSMiddleware 
 from app.core.config import settings
 from app.routers.api import api_router
-from app.db.session import engine # Para crear tablas si no se usan migraciones
-from app.db.base_class import Base # Necesario para create_all
-from app.db.init_db import init_db # Script para inicializar
-from app.db.session import SessionLocal # Para el script de inicialización
+from app.db.session import engine 
+from app.db.base_class import Base #
+from app.db.init_db import init_db 
+from app.db.session import SessionLocal 
 
 # Crear tablas (solo si no existen). Para producción, usar Alembic.
 # Base.metadata.create_all(bind=engine)
-# Alternativa con script:
 def try_init_db():
     db = SessionLocal()
     try:

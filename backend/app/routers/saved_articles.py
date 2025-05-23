@@ -59,7 +59,7 @@ def update_existing_saved_article(
         raise HTTPException(status_code=404, detail="Artículo guardado no encontrado.")
     return article_crud_service.update_saved_article(db=db, db_article=db_article, article_in=article_in)
 
-@router.delete("/{article_id}", response_model=SavedArticleInDB) # O devuelve un mensaje de éxito
+@router.delete("/{article_id}", response_model=SavedArticleInDB)
 def delete_existing_saved_article(
     article_id: int, 
     db: Session = Depends(get_db)
@@ -70,4 +70,4 @@ def delete_existing_saved_article(
     db_article = article_crud_service.delete_saved_article(db, article_id=article_id)
     if db_article is None:
         raise HTTPException(status_code=404, detail="Artículo guardado no encontrado.")
-    return db_article # Devuelve el artículo eliminado como confirmación
+    return db_article 

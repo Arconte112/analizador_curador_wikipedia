@@ -15,7 +15,7 @@ def get_saved_articles(db: Session, skip: int = 0, limit: int = 100) -> List[Sav
 def create_saved_article(db: Session, article: SavedArticleCreate) -> SavedArticle:
     db_article = SavedArticle(
         title_wikipedia=article.title_wikipedia,
-        url_wikipedia=str(article.url_wikipedia), # Asegurar que es string
+        url_wikipedia=str(article.url_wikipedia), 
         summary_processed=article.summary_processed,
         frequent_words=article.frequent_words,
         word_count=article.word_count
@@ -26,8 +26,7 @@ def create_saved_article(db: Session, article: SavedArticleCreate) -> SavedArtic
     return db_article
 
 def update_saved_article(db: Session, db_article: SavedArticle, article_in: SavedArticleUpdate) -> SavedArticle:
-    update_data = article_in.model_dump(exclude_unset=True) # Pydantic V2
-    # update_data = article_in.dict(exclude_unset=True) # Pydantic V1
+    update_data = article_in.model_dump(exclude_unset=True) 
     for key, value in update_data.items():
         setattr(db_article, key, value)
     db.add(db_article)

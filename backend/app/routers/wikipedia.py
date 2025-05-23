@@ -14,7 +14,7 @@ def search_articles_endpoint(
     """
     suggestions_data = wikipedia_service.search_wikipedia_articles(term)
     if not suggestions_data:
-        # Devolver lista vacía en lugar de 404 si la búsqueda no arroja nada
+       
         return WikipediaSearchResult(suggestions=[]) 
     
     suggestions = [WikipediaSearchSuggestion(title=s["title"]) for s in suggestions_data]
